@@ -1,0 +1,21 @@
+---
+  - name: check packages to install/upgrade
+    command: /usr/lib/update-notifier/apt-check --package-names
+    register: upgrade_packages
+    changed_when: upgrade_packages.stderr != ""
+
+  - name: upgrade paskages
+    apt:
+      update_cache: yes
+      upgrade: dist
+    when: upgrade_packages.stderr != ""
+
+  - name: check reboot required
+    stat:
+      path: /var/run/reboot-required
+      get_md5: no
+    register: upgrade_reboot
+
+  - include_role:
+      name: reboot
+    when: upgrade_reboot.stat.exists == true

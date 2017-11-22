@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Karol Kieglerski
+  description: Upgrade packages if apt update-notifier
+
+  license: BSD
+
+  min_ansible_version: 1.2
+
+  dependencies:
+    - src: kilerkarol.reboot
+      name: reboot
+
+  platforms:
+    - name: Ubuntu
+      versions:
+      - all
+
+  galaxy_tags: [apt, upgrade]
+
+dependencies: []
